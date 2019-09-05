@@ -5,7 +5,7 @@ from nltk.stem import PorterStemmer
 #nltk.download()
 class preprocessing:
     def __init__(self):
-        print("hello")
+        print("Preprocessing class")
 
     def stemmer(self, type=''):
         stemmer = None

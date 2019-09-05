@@ -1,8 +1,21 @@
 from preprocesing import *
 
 pre = preprocessing()
+
 stem = pre.stemmer(type='porter')
 res=pre.stem(stem=stem, word='Abandon')
 print(res)
 res=pre.stem(stem=stem, word='abandonment')
+print(res)
+res=pre.stem(stem=stem, word='Absorbency')
+print(res)
+res=pre.stem(stem=stem, word='absorbent')
+print(res)
+res=pre.stem(stem=stem, word='Marketing')
+print(res)
+res=pre.stem(stem=stem, word='markets')
+print(res)
+res=pre.stem(stem=stem, word='University')
+print(res)
+res=pre.stem(stem=stem, word='universe')
 print(res)
