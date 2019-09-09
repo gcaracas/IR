@@ -4,6 +4,8 @@ from nltk.stem import PorterStemmer
 from nltk.tokenize import TreebankWordTokenizer
 from nltk.tokenize import TweetTokenizer
 from nltk.tokenize import RegexpTokenizer
+from nltk.corpus import stopwords
+
 
 #Taken from nltk tweetertokenizer
 # Source: https://www.nltk.org/_modules/nltk/tokenize/casual.html
@@ -44,3 +46,8 @@ class preprocessing:
 
     def tokenize(self, sentence='', tokenizer=None):
         return tokenizer.tokenize(sentence)
+
+    def remove_stopwords(self, words):
+        stop_words = set(stopwords.words('english')) 
+        return [w for w in words if not w in stop_words] 
+
