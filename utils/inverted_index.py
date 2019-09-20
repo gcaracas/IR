@@ -1,4 +1,5 @@
 import re
+import sys
 from utils.preprocessing import preprocessing
 
 class Appearance:
@@ -91,3 +92,46 @@ class inverted_index:
         the documents where they appear.
         """
         return {term: self.index[term] for term in query.split(' ') if term in self.index}
+
+    def create_term_document_matrix(self):
+        terms = list(self.index.keys())
+        stemmed_tokens=[]
+        for id, document in self.storage.index.items():
+            text = self.preprocessing.remove_punctuation(text=document['text'])
+            tokens = self.preprocessing.tokenize(text=text)
+            tokens = self.preprocessing.remove_stopwords(tokens=tokens)
+            tokens = self.preprocessing.remove_capitalization(tokens=tokens)
+            stems = self.preprocessing.stem(tokens=tokens)
+            for stem in stems:
+                found = False
+                for token in tokens:
+                    if token == stem:
+                        found = True
+                if found == False:
+                    stemmed_tokens.append(stem)
+        # We have now all the stemmed words that didn't match documents, now
+        # let's make a unique list of them.
+        stem_tokens = list(set(stemmed_tokens))
+
+        # Now let's generate the matrix
+        self.doc_term_matrix_all=[]
+        for id, document in self.storage.index.items():
+            term_doc_matrix=dict()
+            text = self.preprocessing.remove_punctuation(text=document['text'])
+            tokens = self.preprocessing.tokenize(text=text)
+            tokens = self.preprocessing.remove_stopwords(tokens=tokens)
+            tokens = self.preprocessing.remove_capitalization(tokens=tokens)
+            stems = self.preprocessing.stem(tokens=tokens)
+            for full_stem in stem_tokens:
+                found = False
+                for doc_stemmed_token in stems:
+                    if full_stem == doc_stemmed_token:
+                        found = True
+                if found == True:
+                    term_doc_matrix[full_stem] = 1
+                else:
+                    term_doc_matrix[full_stem] = 0
+            self.doc_term_matrix_all.append(term_doc_matrix)
+
+    def print_term_document_matrix(self):
+        print(len(self.doc_term_matrix_all))
