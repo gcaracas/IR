@@ -50,7 +50,7 @@ inverted_index.show_inverted_index()
 
 inverted_index.create_term_document_matrix()
 inverted_index.print_term_document_matrix()
-
+inverted_index.term_term_correlation_matrix()
 '''
 pre = preprocessing()
 tokens = pre.tokenize(text=alltext)

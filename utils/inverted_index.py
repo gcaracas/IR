@@ -1,5 +1,4 @@
-import re
-import sys
+import numpy as np
 from utils.preprocessing import preprocessing
 
 class Appearance:
@@ -134,22 +133,35 @@ class inverted_index:
             self.doc_term_matrix_all.append(term_doc_matrix)
 
     def print_term_document_matrix(self):
+        numeric_result_table=[]
         print(len(self.doc_term_matrix_all))
         terms = list(self.doc_term_matrix_all[0].keys())
         print(terms)
-        title=[]
+        title=['Terms/Document']
         for i in range(len(self.doc_term_matrix_all)):
-            title.append('Doc {}'.format(i))
-        print("{: >10} {: >10} {: >10} {: >10} {: >10}".format(*title))
+            title.append('Doc {}'.format(i+1))
+        print("{: >10} {: >10} {: >10} {: >10} {: >10} {: >10}".format(*title))
         for i in range(len(terms)):
+            numeric_values=[]
             doc1 = self.doc_term_matrix_all[0][terms[i]]
             doc2 = self.doc_term_matrix_all[1][terms[i]]
             doc3 = self.doc_term_matrix_all[2][terms[i]]
             doc4 = self.doc_term_matrix_all[3][terms[i]]
             doc5 = self.doc_term_matrix_all[4][terms[i]]
+            numeric_values.append(doc1)
+            numeric_values.append(doc2)
+            numeric_values.append(doc3)
+            numeric_values.append(doc4)
+            numeric_values.append(doc5)
             print('{: >10} {: >10} {: >10} {: >10} {: >10} {: >10}'.format(terms[i],
                                                                            doc1,
                                                                            doc2,
                                                                            doc3,
                                                                            doc4,
                                                                            doc5))
+            numeric_result_table.append(numeric_values)
+        self.numeric_term_doc=np.array(numeric_result_table)
+    def term_term_correlation_matrix(self):
+        self.numeric_term_term = np.matmul(self.numeric_term_doc, self.numeric_term_doc.transpose())
+        for row in self.numeric_term_term:
+            print(row)
