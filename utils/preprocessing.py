@@ -3,6 +3,7 @@ from nltk.tokenize import TreebankWordTokenizer
 from nltk.tokenize import TweetTokenizer
 from nltk.tokenize import RegexpTokenizer
 from nltk.corpus import stopwords
+import re
 
 class preprocessing:
     def __init__(self):
@@ -21,3 +22,6 @@ class preprocessing:
 
     def remove_capitalization(self, tokens=[]):
         return [w.lower() for w in tokens]
+
+    def remove_punctuation(self, text=''):
+        return re.sub(r'[^\w\s]', '', text)
