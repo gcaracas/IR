@@ -135,3 +135,21 @@ class inverted_index:
 
     def print_term_document_matrix(self):
         print(len(self.doc_term_matrix_all))
+        terms = list(self.doc_term_matrix_all[0].keys())
+        print(terms)
+        title=[]
+        for i in range(len(self.doc_term_matrix_all)):
+            title.append('Doc {}'.format(i))
+        print("{: >10} {: >10} {: >10} {: >10} {: >10}".format(*title))
+        for i in range(len(terms)):
+            doc1 = self.doc_term_matrix_all[0][terms[i]]
+            doc2 = self.doc_term_matrix_all[1][terms[i]]
+            doc3 = self.doc_term_matrix_all[2][terms[i]]
+            doc4 = self.doc_term_matrix_all[3][terms[i]]
+            doc5 = self.doc_term_matrix_all[4][terms[i]]
+            print('{: >10} {: >10} {: >10} {: >10} {: >10} {: >10}'.format(terms[i],
+                                                                           doc1,
+                                                                           doc2,
+                                                                           doc3,
+                                                                           doc4,
+                                                                           doc5))
